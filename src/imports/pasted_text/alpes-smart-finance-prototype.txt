@@ -1,0 +1,144 @@
+Create a clickable mobile app prototype flow for “Alpes Smart Finance” called “Flujo 2 — Motor de Inteligencia Financiera”.
+
+Goal: Show how the app uses authorized data, Customer DNA, Big Data, Fast Data, GenAI and Agentic AI to detect a customer need, explain a personalized financial recommendation, simulate the offer, and let the customer decide.
+
+Create 8 iPhone 14 screens, 390x844 px, with the following exact frame names and content:
+
+Frame 1: 01_Dashboard_Financiero
+Screen title: “Tu salud financiera”
+Greeting: “Hola, Laura”
+Show dashboard cards:
+- Salud financiera: 82/100
+- Cupo disponible: $8.000.000
+- Ahorro mensual estimado: $650.000
+- Productos activos: 3
+Show recommendation card:
+“Recomendación destacada”
+“Podrías financiar tu próximo vehículo con una cuota ajustada a tu perfil.”
+Small label: “Basado en Customer DNA”
+Primary button: “Ver recomendación”
+
+Frame 2: 02_Insight_Detectado
+Screen title: “Detectamos una oportunidad”
+Show insight card:
+“Posible compra de vehículo”
+Text:
+“Identificamos señales de interés en comercios aliados y movimientos recientes compatibles con una decisión de movilidad.”
+Show data sources as chips:
+- Datos financieros autorizados
+- Historial transaccional
+- Comercios aliados
+- Perfil de riesgo
+Add transparency message:
+“Solo usamos datos que autorizaste previamente.”
+Primary button: “Ver detalle”
+Secondary button: “No me interesa”
+
+Frame 3: 03_Oferta_Personalizada
+Screen title: “Oferta personalizada”
+Show product card:
+“Crédito Vehículo Alpes”
+Details:
+- Monto preevaluado: $45.000.000
+- Plazo sugerido: 48 meses
+- Cuota estimada: $1.390.000
+- Tasa estimada: 1,6% M.V.
+- Probabilidad de aprobación: Alta
+Show message:
+“Esta oferta fue diseñada según tu capacidad de pago y comportamiento financiero.”
+Primary button: “Simular oferta”
+Secondary button: “Ver alternativas”
+
+Frame 4: 04_Por_Que_Recibo_Esto
+Screen title: “¿Por qué recibo esta oferta?”
+Show explanation cards:
+1. “Tienes buen comportamiento de pago.”
+2. “Tus ingresos soportan una cuota estimada.”
+3. “Detectamos señales de interés en movilidad.”
+4. “Tu nivel de endeudamiento está dentro del rango recomendado.”
+Add GenAI explanation box:
+“Alpes AI: Esta recomendación busca ayudarte a financiar un vehículo sin comprometer tu estabilidad financiera.”
+Privacy message:
+“Puedes cambiar tus preferencias de datos cuando quieras.”
+Primary button: “Entiendo”
+Secondary button: “Editar mis datos”
+
+Frame 5: 05_Simulador_Cuota
+Screen title: “Simula tu cuota”
+Show interactive-looking simulator with sliders or input cards:
+- Monto: $45.000.000
+- Plazo: 48 meses
+- Cuota estimada: $1.390.000
+- Seguro incluido: Sí
+- Primer pago: 30 días
+Show comparison:
+“Si reduces el plazo a 36 meses, pagarías menos intereses.”
+Primary button: “Calcular”
+Secondary button: “Guardar simulación”
+
+Frame 6: 06_Asistente_GenAI
+Screen title: “Asistente financiero”
+Show chat interface.
+Assistant message:
+“Hola, soy Alpes AI. Puedo explicarte esta oferta en palabras simples.”
+User quick questions:
+- “¿Por qué esta cuota?”
+- “¿Qué pasa si cambio el plazo?”
+- “¿Esta oferta afecta mi historial?”
+Assistant response visible:
+“Esta cuota se calcula con el monto, plazo, tasa estimada y tu capacidad de pago. Puedes ajustar el plazo para encontrar una cuota más cómoda.”
+Primary button: “Continuar”
+Secondary button: “Hacer otra pregunta”
+
+Frame 7: 07_Centro_Preferencias
+Screen title: “Centro de preferencias”
+Show privacy and data control screen.
+Text:
+“Controla qué datos usas para recibir recomendaciones.”
+Show toggles:
+- Recomendaciones personalizadas: ON
+- Datos de comercios aliados: ON
+- Notificaciones push: ON
+- Email financiero: OFF
+- Uso de datos agregados anónimos: ON
+Security message:
+“Nunca vendemos tus datos personales. Las recomendaciones se generan con datos autorizados.”
+Primary button: “Guardar preferencias”
+Secondary button: “Ver política de datos”
+
+Frame 8: 08_Decision_Final
+Screen title: “Decide cómo continuar”
+Show final offer card:
+“Crédito Vehículo Alpes”
+- Monto: $45.000.000
+- Plazo: 48 meses
+- Cuota estimada: $1.390.000
+- Estado: Preevaluado
+Show decision options:
+1. “Aceptar oferta”
+2. “Recordarme después”
+3. “No me interesa”
+4. “Ver alternativas”
+Add message:
+“Tu decisión ayuda a mejorar futuras recomendaciones.”
+Primary button: “Aceptar oferta”
+Secondary button: “Recordarme después”
+
+Prototype interactions:
+Connect the primary button of each frame to the next frame:
+01_Dashboard_Financiero → 02_Insight_Detectado
+02_Insight_Detectado → 03_Oferta_Personalizada
+03_Oferta_Personalizada → 04_Por_Que_Recibo_Esto
+04_Por_Que_Recibo_Esto → 05_Simulador_Cuota
+05_Simulador_Cuota → 06_Asistente_GenAI
+06_Asistente_GenAI → 07_Centro_Preferencias
+07_Centro_Preferencias → 08_Decision_Final
+
+Design requirements:
+- Use modern mobile banking design.
+- Use a dark navy header and white financial cards.
+- Use chips, toggles, sliders, progress indicators and chat bubbles.
+- Make the GenAI explanation clear and non-invasive.
+- Emphasize privacy, consent, Customer DNA and explainability.
+- Do not use lorem ipsum.
+- Make the prototype look polished for an executive C-Level presentation.

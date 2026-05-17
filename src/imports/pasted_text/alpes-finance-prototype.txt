@@ -1,0 +1,256 @@
+Improve the entire “Alpes Smart Finance” prototype by making all secondary buttons, tertiary links, back arrows and final-state buttons functional.
+
+Do not redesign the whole prototype from scratch. Keep the existing visual style, frame names, colors, typography and main flow. Only add the missing interactions, overlays, auxiliary screens and navigation needed to make the prototype feel complete and realistic.
+
+General requirements:
+- The app is in Spanish.
+- Use iPhone 14 frames, 390x844 px.
+- Keep the premium mobile banking style: dark navy headers, white cards, soft shadows, green success states and subtle gold accents.
+- Do not use lorem ipsum.
+- All primary, secondary and tertiary buttons must be clickable.
+- Add a small back arrow on every screen except 00_Alpes_Smart_Finance_Hub.
+- Add a small home icon or “Inicio” link on every screen except 00_Alpes_Smart_Finance_Hub.
+- Every home icon must navigate to 00_Alpes_Smart_Finance_Hub.
+- Use instant or smart animate transitions.
+
+Main hub:
+Frame: 00_Alpes_Smart_Finance_Hub
+Keep the two main cards:
+1. “Onboarding Digital Seguro”
+2. “Motor de Inteligencia Financiera”
+
+Connections:
+- “Iniciar onboarding” → 01_Home_Oferta_Preaprobada
+- “Ver recomendación inteligente” → 01_Dashboard_Financiero
+
+FLOW 1 — Onboarding Digital Seguro:
+
+Keep the main flow:
+01_Home_Oferta_Preaprobada → 02_Resumen_Oferta → 03_Consentimiento_Datos → 04_Validacion_Identidad → 05_Firma_Digital → 06_Registro_Blockchain → 07_Activacion_Exitosa
+
+Now enable all secondary and tertiary buttons:
+
+On 01_Home_Oferta_Preaprobada:
+- Primary “Ver oferta” → 02_Resumen_Oferta
+- Secondary “Ahora no” → create overlay “Oferta guardada”
+Overlay content:
+Title: “Oferta guardada”
+Text: “Puedes retomarla cuando quieras desde tus recomendaciones.”
+Buttons:
+“Volver al inicio” → 00_Alpes_Smart_Finance_Hub
+“Ver recomendación inteligente” → 01_Dashboard_Financiero
+
+On 02_Resumen_Oferta:
+- Primary “Continuar” → 03_Consentimiento_Datos
+- Secondary “Ver términos” → create overlay or screen called 02A_Terminos_Oferta
+Screen content:
+Title: “Términos de la oferta”
+Show:
+- Producto: Tarjeta Alpes Black
+- Cupo aprobado: $8.000.000
+- Tasa estimada: 2,1% M.V.
+- Cuota de manejo: $0 por 3 meses
+- Beneficio: Cashback 1% en comercios aliados
+- Vigencia de la oferta: 15 días
+- Nota: “Las condiciones pueden variar según validación final.”
+Buttons:
+“Aceptar términos” → 03_Consentimiento_Datos
+“Volver al resumen” → 02_Resumen_Oferta
+
+On 03_Consentimiento_Datos:
+- Primary “Autorizar datos” → 04_Validacion_Identidad
+- Secondary “Configurar permisos” → create screen 03A_Configurar_Permisos
+Screen content:
+Title: “Configurar permisos”
+Text: “Elige qué datos quieres usar para validar y personalizar tu oferta.”
+Show toggles:
+- Datos financieros: ON
+- Historial transaccional: ON
+- Datos de aliados: ON
+- Recomendaciones personalizadas: ON
+- Notificaciones comerciales: OFF
+Buttons:
+“Guardar permisos” → 04_Validacion_Identidad
+“Volver” → 03_Consentimiento_Datos
+
+On 04_Validacion_Identidad:
+- Primary “Validar identidad” → 05_Firma_Digital
+- Secondary “Usar código OTP” → create screen 04A_Validacion_OTP
+Screen content:
+Title: “Validación por código OTP”
+Text: “Enviamos un código de 6 dígitos a tu celular registrado.”
+Show OTP input boxes with example: 4 2 8 9 1 6
+Security message: “Este código vence en 3 minutos.”
+Buttons:
+“Confirmar código” → 05_Firma_Digital
+“Reenviar código” → stay on 04A_Validacion_OTP
+“Volver a biometría” → 04_Validacion_Identidad
+
+On 05_Firma_Digital:
+- Primary “Firmar digitalmente” → 06_Registro_Blockchain
+- Secondary “Descargar resumen” → create overlay “Resumen descargado”
+Overlay content:
+Title: “Resumen descargado”
+Text: “El resumen contractual fue guardado en tu dispositivo y enviado a tu correo registrado.”
+Buttons:
+“Continuar firma” → 05_Firma_Digital
+“Firmar digitalmente” → 06_Registro_Blockchain
+- Checkbox “He leído y acepto el resumen contractual” must be visually selected before signing.
+
+On 06_Registro_Blockchain:
+- Primary “Ver comprobante” → create screen 06A_Comprobante_Blockchain
+Screen content:
+Title: “Comprobante de trazabilidad”
+Show:
+- Código de auditoría: ALP-BC-2026-000184
+- Fecha: 15 mayo 2026
+- Estado: Verificado
+- Hash de registro: 9F3A...B72C
+- Canal: App Alpes Smart Finance
+Text: “Este comprobante demuestra que tu consentimiento y firma fueron registrados de forma segura.”
+Buttons:
+“Continuar activación” → 07_Activacion_Exitosa
+“Volver” → 06_Registro_Blockchain
+- Secondary “Continuar” → 07_Activacion_Exitosa
+
+On 07_Activacion_Exitosa:
+This screen must not be a dead end.
+Keep success content and add:
+Primary button: “Ir al inicio” → 00_Alpes_Smart_Finance_Hub
+Secondary button: “Ver recomendación inteligente” → 01_Dashboard_Financiero
+Tertiary link: “Revisar comprobante” → 06A_Comprobante_Blockchain
+
+FLOW 2 — Motor de Inteligencia Financiera:
+
+Keep the main flow:
+01_Dashboard_Financiero → 02_Insight_Detectado → 03_Oferta_Personalizada → 04_Por_Que_Recibo_Esto → 05_Simulador_Cuota → 06_Asistente_GenAI → 07_Centro_Preferencias → 08_Decision_Final
+
+Now enable all secondary and tertiary buttons:
+
+On 01_Dashboard_Financiero:
+- Primary “Ver recomendación” → 02_Insight_Detectado
+
+On 02_Insight_Detectado:
+- Primary “Ver detalle” → 03_Oferta_Personalizada
+- Secondary “No me interesa” → create overlay “Recomendación descartada”
+Overlay content:
+Title: “Recomendación descartada”
+Text: “Gracias por contarnos. Usaremos esta decisión para mejorar futuras recomendaciones.”
+Buttons:
+“Volver al inicio” → 00_Alpes_Smart_Finance_Hub
+“Ver otra recomendación” → 01_Dashboard_Financiero
+
+On 03_Oferta_Personalizada:
+- Primary “Simular oferta” → 05_Simulador_Cuota
+- Secondary “Ver alternativas” → create screen 03A_Alternativas_Financieras
+Screen content:
+Title: “Alternativas disponibles”
+Show three cards:
+1. “Crédito Vehículo Alpes” - Cuota estimada: $1.390.000
+2. “Libre inversión movilidad” - Cuota estimada: $980.000
+3. “Aumento de cupo tarjeta” - Cupo adicional: $5.000.000
+Buttons:
+“Elegir crédito vehículo” → 04_Por_Que_Recibo_Esto
+“Volver a oferta” → 03_Oferta_Personalizada
+
+On 04_Por_Que_Recibo_Esto:
+- Primary “Entiendo” → 05_Simulador_Cuota
+- Secondary “Editar mis datos” → 07_Centro_Preferencias
+
+On 05_Simulador_Cuota:
+- Primary “Calcular” → update or show overlay “Simulación actualizada”
+Overlay content:
+Title: “Simulación actualizada”
+Text: “Con este plazo, tu cuota estimada sería $1.390.000 mensuales.”
+Buttons:
+“Continuar” → 06_Asistente_GenAI
+“Guardar simulación” → create overlay “Simulación guardada”
+- Secondary “Guardar simulación” → overlay “Simulación guardada”
+Overlay content:
+Title: “Simulación guardada”
+Text: “Guardamos esta simulación para que puedas revisarla después.”
+Buttons:
+“Continuar” → 06_Asistente_GenAI
+“Volver al simulador” → 05_Simulador_Cuota
+
+On 06_Asistente_GenAI:
+- Primary “Continuar” → 07_Centro_Preferencias
+- Secondary “Hacer otra pregunta” → create overlay “Nueva pregunta”
+Overlay content:
+Title: “Alpes AI”
+Text: “Puedes preguntar sobre cuota, tasa, plazo, aprobación o impacto en tu capacidad de pago.”
+Show example user question:
+“¿Qué pasa si cambio el plazo a 36 meses?”
+Show AI answer:
+“Tu cuota mensual subiría, pero pagarías menos intereses totales.”
+Buttons:
+“Continuar” → 07_Centro_Preferencias
+“Volver al chat” → 06_Asistente_GenAI
+
+On 07_Centro_Preferencias:
+- Primary “Guardar preferencias” → 08_Decision_Final
+- Secondary “Ver política de datos” → create screen 07A_Politica_Datos
+Screen content:
+Title: “Política de datos”
+Text:
+“Tus datos se usan para validar ofertas, personalizar recomendaciones y mejorar tu experiencia financiera. Puedes cambiar tus permisos cuando quieras.”
+Show sections:
+- Datos financieros
+- Datos transaccionales
+- Datos de aliados
+- Datos agregados anónimos
+- Canales de contacto
+Buttons:
+“Aceptar política” → 08_Decision_Final
+“Volver a preferencias” → 07_Centro_Preferencias
+
+On 08_Decision_Final:
+This screen must not be a dead end.
+Keep final offer content and add:
+Primary button: “Aceptar oferta” → 03_Consentimiento_Datos
+Secondary button: “Volver al inicio” → 00_Alpes_Smart_Finance_Hub
+Tertiary link: “Simular de nuevo” → 05_Simulador_Cuota
+Also keep options:
+- “Recordarme después” → create overlay “Recordatorio programado”
+Overlay text: “Te recordaremos esta oferta en 7 días.”
+Button “Ir al inicio” → 00_Alpes_Smart_Finance_Hub
+- “No me interesa” → create overlay “Oferta descartada”
+Overlay text: “Tu decisión fue registrada. Ajustaremos futuras recomendaciones.”
+Button “Ir al inicio” → 00_Alpes_Smart_Finance_Hub
+- “Ver alternativas” → 03A_Alternativas_Financieras
+
+Back arrow navigation:
+- 02_Resumen_Oferta → 01_Home_Oferta_Preaprobada
+- 02A_Terminos_Oferta → 02_Resumen_Oferta
+- 03_Consentimiento_Datos → 02_Resumen_Oferta
+- 03A_Configurar_Permisos → 03_Consentimiento_Datos
+- 04_Validacion_Identidad → 03_Consentimiento_Datos
+- 04A_Validacion_OTP → 04_Validacion_Identidad
+- 05_Firma_Digital → 04_Validacion_Identidad
+- 06_Registro_Blockchain → 05_Firma_Digital
+- 06A_Comprobante_Blockchain → 06_Registro_Blockchain
+- 07_Activacion_Exitosa → 06_Registro_Blockchain
+
+- 02_Insight_Detectado → 01_Dashboard_Financiero
+- 03_Oferta_Personalizada → 02_Insight_Detectado
+- 03A_Alternativas_Financieras → 03_Oferta_Personalizada
+- 04_Por_Que_Recibo_Esto → 03_Oferta_Personalizada
+- 05_Simulador_Cuota → 04_Por_Que_Recibo_Esto
+- 06_Asistente_GenAI → 05_Simulador_Cuota
+- 07_Centro_Preferencias → 06_Asistente_GenAI
+- 07A_Politica_Datos → 07_Centro_Preferencias
+- 08_Decision_Final → 07_Centro_Preferencias
+
+Important integration:
+When the user clicks “Aceptar oferta” on 08_Decision_Final, connect to 03_Consentimiento_Datos because accepting a recommended financial product must continue into consent, identity validation, digital signature, blockchain traceability and activation.
+
+Update 03_Consentimiento_Datos text so it works for both flows:
+“Para activar tu producto financiero recomendado, necesitamos confirmar tus permisos, validar tu identidad y registrar tu aceptación de forma segura.”
+
+Final polish:
+- Make overlays centered and elegant.
+- Keep auxiliary screens simple and not overloaded.
+- Make every button visibly clickable.
+- Use consistent button styles.
+- Keep the prototype clean for an executive C-Level presentation.
+- Create an overview frame called 99_Prototype_Overview showing all main screens and auxiliary screens grouped by flow.
