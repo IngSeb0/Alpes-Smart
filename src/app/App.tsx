@@ -54,7 +54,9 @@ type Screen =
   | "06_Asistente_GenAI"
   | "07_Centro_Preferencias"
   | "07A_Politica_Datos"
-  | "08_Decision_Final";
+  | "08_Decision_Final"
+  | "08_Producto_Activo"
+  | "99_Prototype_Overview";
 
 type Overlay =
   | "Overlay_Oferta_Guardada"
@@ -64,7 +66,8 @@ type Overlay =
   | "Overlay_Simulacion_Guardada"
   | "Overlay_Nueva_Pregunta_AI"
   | "Overlay_Recordatorio_Programado"
-  | "Overlay_Oferta_Descartada";
+  | "Overlay_Oferta_Descartada"
+  | "Overlay_Producto_Agregado";
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>("00_Alpes_Smart_Finance_Hub");
@@ -123,6 +126,8 @@ export default function App() {
       "07_Centro_Preferencias": "06_Asistente_GenAI",
       "07A_Politica_Datos": "07_Centro_Preferencias",
       "08_Decision_Final": "07_Centro_Preferencias",
+      "08_Producto_Activo": "07_Activacion_Exitosa",
+      "99_Prototype_Overview": "00_Alpes_Smart_Finance_Hub",
     };
     const target = explicitBack[currentScreen];
     if (target) {
@@ -168,6 +173,7 @@ export default function App() {
             <Screen00_Hub
               onStartOnboarding={() => navigate("01_Home_Oferta_Preaprobada")}
               onStartIntelligence={() => navigate("01_Dashboard_Financiero")}
+              onOpenOverview={() => navigate("99_Prototype_Overview")}
             />
           )}
           {currentScreen === "01_Home_Oferta_Preaprobada" && (
@@ -240,8 +246,16 @@ export default function App() {
           {currentScreen === "07_Activacion_Exitosa" && (
             <Screen07_Activacion
               onHome={goHome}
-              onDashboard={() => navigate("01_Dashboard_Financiero")}
+              onViewProduct={() => navigate("08_Producto_Activo")}
               onReceipt={() => navigate("06A_Comprobante_Blockchain")}
+            />
+          )}
+          {currentScreen === "08_Producto_Activo" && (
+            <Screen08_ProductoActivo
+              onAddToWallet={() => setOverlay("Overlay_Producto_Agregado")}
+              onViewReceipt={() => navigate("06A_Comprobante_Blockchain")}
+              onHome={goHome}
+              onDashboard={() => navigate("01_Dashboard_Financiero")}
             />
           )}
           {currentScreen === "01_Dashboard_Financiero" && (
@@ -306,6 +320,7 @@ export default function App() {
               onAlternatives={() => navigate("03A_Alternativas_Financieras")}
             />
           )}
+          {currentScreen === "99_Prototype_Overview" && <Screen99_Overview />}
         </div>
         <OverlayModal
           overlay={overlay}
@@ -320,10 +335,12 @@ export default function App() {
 
 function Screen00_Hub({
   onStartOnboarding,
-  onStartIntelligence
+  onStartIntelligence,
+  onOpenOverview
 }: {
   onStartOnboarding: () => void;
   onStartIntelligence: () => void;
+  onOpenOverview: () => void;
 }) {
   return (
     <div className="px-6 py-8 h-full flex flex-col bg-gradient-to-b from-background to-secondary/20">
@@ -386,6 +403,18 @@ function Screen00_Hub({
 
       {/* Footer */}
       <div className="mt-10 pt-6 border-t border-border/50">
+        <div className="mb-4 rounded-xl border border-primary/20 bg-primary/5 p-3">
+          <p className="text-xs text-foreground mb-1">Demo académico</p>
+          <p className="text-xs text-muted-foreground">
+            Este prototipo demuestra dos capacidades: recomendación financiera inteligente y onboarding digital seguro.
+          </p>
+          <div className="mt-2 inline-flex px-2 py-1 rounded-full text-[10px] border border-primary/30 text-primary">
+            Cloud + Blockchain + Big Data + GenAI
+          </div>
+        </div>
+        <button onClick={onOpenOverview} className="w-full mb-3 text-xs text-primary underline">
+          Ver overview de prototipo
+        </button>
         <div className="flex items-center justify-center gap-2 mb-3">
           <Shield className="w-4 h-4 text-success" />
           <p className="text-xs text-muted-foreground">Tecnología bancaria segura y confiable</p>
@@ -961,11 +990,11 @@ function Screen06_Blockchain({ onContinue, onViewReceipt }: { onContinue: () => 
 
 function Screen07_Activacion({
   onHome,
-  onDashboard,
+  onViewProduct,
   onReceipt
 }: {
   onHome: () => void;
-  onDashboard: () => void;
+  onViewProduct: () => void;
   onReceipt: () => void;
 }) {
   const steps = [
@@ -1044,12 +1073,15 @@ function Screen07_Activacion({
 
       {/* Actions */}
       <div className="space-y-3 pt-6">
-        <PrimaryButton fullWidth>
-          Empezar a usar
+        <PrimaryButton onClick={onViewProduct} fullWidth>
+          Ver producto activo
         </PrimaryButton>
-        <SecondaryButton fullWidth>
-          Agregar a billetera
+        <SecondaryButton onClick={onHome} fullWidth>
+          Ir al inicio
         </SecondaryButton>
+        <button onClick={onReceipt} className="w-full text-center text-sm text-primary underline">
+          Revisar comprobante
+        </button>
       </div>
 
       <p className="text-center text-xs text-muted-foreground mt-3">
@@ -1210,7 +1242,7 @@ function Screen02_Insight({ onContinue, onDismiss }: { onContinue: () => void; o
         <PrimaryButton onClick={onContinue} fullWidth>
           Ver detalle
         </PrimaryButton>
-        <SecondaryButton fullWidth>
+        <SecondaryButton onClick={onDismiss} fullWidth>
           No me interesa
         </SecondaryButton>
       </div>
@@ -1286,7 +1318,7 @@ function Screen03_Oferta({ onContinue, onAlternatives }: { onContinue: () => voi
         <PrimaryButton onClick={onContinue} fullWidth>
           Entender oferta
         </PrimaryButton>
-        <SecondaryButton fullWidth>
+        <SecondaryButton onClick={onAlternatives} fullWidth>
           Ver alternativas
         </SecondaryButton>
       </div>
@@ -1360,7 +1392,7 @@ function Screen04_Explicacion({ onContinue, onEditData }: { onContinue: () => vo
         <PrimaryButton onClick={onContinue} fullWidth>
           Entiendo
         </PrimaryButton>
-        <SecondaryButton fullWidth>
+        <SecondaryButton onClick={onEditData} fullWidth>
           Editar mis datos
         </SecondaryButton>
       </div>
@@ -1797,6 +1829,87 @@ function Screen08_Decision({
   );
 }
 
+function Screen08_ProductoActivo({
+  onAddToWallet,
+  onViewReceipt,
+  onHome,
+  onDashboard
+}: {
+  onAddToWallet: () => void;
+  onViewReceipt: () => void;
+  onHome: () => void;
+  onDashboard: () => void;
+}) {
+  return (
+    <div className="px-6 py-6 h-full flex flex-col">
+      <div className="mb-6">
+        <h1 className="text-foreground text-xl">Tarjeta Alpes Black</h1>
+        <p className="text-sm text-muted-foreground">Producto activo</p>
+      </div>
+      <div className="flex-1 overflow-y-auto">
+        <div className="bg-gradient-to-br from-[#0f1729] via-[#1a2849] to-[#1e3a5f] rounded-3xl p-6 text-white shadow-xl mb-5">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between"><span className="text-sm opacity-80">Estado</span><span>Activa</span></div>
+            <div className="flex items-center justify-between"><span className="text-sm opacity-80">Cupo total</span><span>$8.000.000</span></div>
+            <div className="flex items-center justify-between"><span className="text-sm opacity-80">Cupo disponible</span><span>$8.000.000</span></div>
+            <div className="flex items-center justify-between"><span className="text-sm opacity-80">Fecha de activación</span><span>Hoy</span></div>
+            <div className="flex items-center justify-between"><span className="text-sm opacity-80">Beneficio activo</span><span>3 meses sin cuota de manejo</span></div>
+            <div className="flex items-center justify-between"><span className="text-sm opacity-80">Cashback</span><span>1% en comercios aliados</span></div>
+            <div className="flex items-center justify-between"><span className="text-sm opacity-80">Código de auditoría</span><span className="font-mono text-xs">ALP-BC-2026-000184</span></div>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl border border-border shadow-sm p-5">
+          <h3 className="text-foreground mb-4">Acciones disponibles</h3>
+          <div className="space-y-3">
+            <PrimaryButton onClick={onAddToWallet} fullWidth>Agregar a billetera digital</PrimaryButton>
+            <SecondaryButton onClick={onViewReceipt} fullWidth>Ver comprobante Blockchain</SecondaryButton>
+            <SecondaryButton onClick={onHome} fullWidth>Ir al inicio</SecondaryButton>
+            <SecondaryButton onClick={onDashboard} fullWidth>Ver recomendación inteligente</SecondaryButton>
+          </div>
+        </div>
+      </div>
+      <p className="text-center text-xs text-muted-foreground mt-3">Alpes Smart Finance</p>
+    </div>
+  );
+}
+
+function Screen99_Overview() {
+  const onboarding = [
+    "01_Home_Oferta_Preaprobada",
+    "02_Resumen_Oferta",
+    "03_Consentimiento_Datos",
+    "04_Validacion_Identidad",
+    "05_Firma_Digital",
+    "06_Registro_Blockchain",
+    "07_Activacion_Exitosa",
+    "08_Producto_Activo",
+  ];
+  const inteligencia = [
+    "01_Dashboard_Financiero",
+    "02_Insight_Detectado",
+    "03_Oferta_Personalizada",
+    "04_Por_Que_Recibo_Esto",
+    "05_Simulador_Cuota",
+    "06_Asistente_GenAI",
+    "07_Centro_Preferencias",
+    "08_Decision_Final",
+  ];
+
+  return (
+    <div className="px-6 py-6 h-full overflow-y-auto">
+      <h1 className="text-foreground text-xl mb-5">99_Prototype_Overview</h1>
+      <h2 className="text-sm text-primary mb-3">Flujo 1 — Onboarding Digital Seguro</h2>
+      <div className="grid grid-cols-1 gap-2 mb-6">
+        {onboarding.map((s) => <div key={s} className="text-xs bg-white border border-border rounded-lg p-3">{s}</div>)}
+      </div>
+      <h2 className="text-sm text-primary mb-3">Flujo 2 — Motor de Inteligencia Financiera</h2>
+      <div className="grid grid-cols-1 gap-2">
+        {inteligencia.map((s) => <div key={s} className="text-xs bg-white border border-border rounded-lg p-3">{s}</div>)}
+      </div>
+    </div>
+  );
+}
+
 function SimpleScreen({
   title,
   primaryLabel,
@@ -1845,7 +1958,7 @@ function OverlayModal({
 }) {
   if (!overlay) return null;
 
-  const config: Record<Overlay, { title: string; primary: { label: string; action: () => void }; secondary: { label: string; action: () => void } }> = {
+  const config: Record<Overlay, { title: string; description?: string; primary: { label: string; action: () => void }; secondary: { label: string; action: () => void } }> = {
     Overlay_Oferta_Guardada: {
       title: "Oferta guardada",
       primary: { label: "Volver al inicio", action: onHome },
@@ -1885,6 +1998,12 @@ function OverlayModal({
       title: "Oferta descartada",
       primary: { label: "Ir al inicio", action: onHome },
       secondary: { label: "Ver otra recomendación", action: () => onNavigate("01_Dashboard_Financiero") }
+    },
+    Overlay_Producto_Agregado: {
+      title: "Producto agregado",
+      description: "Tu Tarjeta Alpes Black fue agregada a tu billetera digital.",
+      primary: { label: "Ver producto", action: () => onNavigate("08_Producto_Activo") },
+      secondary: { label: "Ir al inicio", action: onHome }
     }
   };
 
@@ -1896,6 +2015,7 @@ function OverlayModal({
           <h3 className="text-foreground">{item.title}</h3>
           <button onClick={onClose} className="text-sm text-muted-foreground">Cerrar</button>
         </div>
+        {item.description && <p className="text-sm text-muted-foreground mb-4">{item.description}</p>}
         <div className="space-y-3">
           <PrimaryButton onClick={item.primary.action} fullWidth>{item.primary.label}</PrimaryButton>
           <SecondaryButton onClick={item.secondary.action} fullWidth>{item.secondary.label}</SecondaryButton>
